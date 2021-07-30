@@ -6,25 +6,28 @@ easy to use stack of matrices
 ## Usage Design 
 
 ```c++
+    
+    //Strong typing for integral and floating_point types
+
     using elevation = s_int16_t<struct elevation_tag>;
     using tile_id = s_int16_t<struct tile_id_tag>;
+
+    //define matrix stack size and data structure
 
     using chunk = matrix_tuple<256, 256, elevation, tile_id>;
 
     chunk ck;
 
-    {
+ 
+        // access
+        
         auto [elevation_, tile_id_] = ck.get<elevation, tile_id>(10, 30);
 
-        ASSERT_EQ(elevation_, 0);
-        ASSERT_EQ(tile_id_, 0);
-
+        // modify
+        
         elevation_ = 50;
         tile_id_ = 10;
     }
 
-    auto [elevation_, tile_id_] = ck.get<elevation, tile_id>(10, 30);
-    ASSERT_EQ(elevation_, 50);
-    ASSERT_EQ(tile_id_, 10);
 ```
  
