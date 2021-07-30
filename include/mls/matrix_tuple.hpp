@@ -34,11 +34,7 @@ namespace mls {
             return std::tuple<Ts&...>{std::get<std::array<Ts, length>>(
                 storage)[pos_to_index(x, y)]...};
         }
-
-        ostream& operator<<(ostream& os, const matrix_tuple& dt) {
-            
-        }
-
+        
        private:
         size_t pos_to_index(size_t x, size_t y) { return x * width + y; }
 
