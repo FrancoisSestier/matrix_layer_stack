@@ -3,7 +3,7 @@ namespace mls {
     template <typename T, typename tag>
     class arithmetic_type {
        public:
-        using underlying_type = typename T;
+        using underlying_type = T;
         arithmetic_type() = default;
 
         constexpr arithmetic_type(T const& value) noexcept(
