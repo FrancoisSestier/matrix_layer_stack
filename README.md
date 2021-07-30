@@ -3,6 +3,9 @@
 ### Matrix Layer Stack
 stack of same sized matrices with heterogeneous types
 
+## Goal
+represent and access a 2d grid of heterogeneous type easily
+
 ## Usage Design 
 
 ```c++
