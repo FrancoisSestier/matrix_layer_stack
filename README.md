@@ -1,7 +1,7 @@
 [![Windows](https://github.com/FrancoisSestier/matrix_layer_stack/actions/workflows/windows.yml/badge.svg)](https://github.com/FrancoisSestier/matrix_layer_stack/actions/workflows/windows.yml) [![Ubuntu](https://github.com/FrancoisSestier/matrix_layer_stack/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/FrancoisSestier/matrix_layer_stack/actions/workflows/ubuntu.yml) [![codecov](https://codecov.io/gh/FrancoisSestier/matrix_layer_stack/branch/master/graph/badge.svg?token=ZPDP1TAO3Z)](https://codecov.io/gh/FrancoisSestier/matrix_layer_stack) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 ### Matrix Layer Stack
-easy to use stack of matrices 
+stack of same sized matrices with heterogeneous types
 
 ## Usage Design 
 
