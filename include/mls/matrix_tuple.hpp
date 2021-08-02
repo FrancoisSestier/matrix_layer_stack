@@ -1,10 +1,10 @@
 #pragma once
 #include <array>
-#include <type_traits>
 #include <iostream>
+#include <type_traits>
 
 namespace details {
-    
+
     template <typename T, typename... Ts>
     struct is_contained : std::disjunction<std::is_same<T, Ts>...> {};
 
@@ -15,6 +15,16 @@ namespace details {
 
     template <typename T>
     struct are_distinct<T> : std::true_type {};
+
+    template <typename... Ts>
+    struct are_const : std::conjunction<std::is_const<Ts>...> {};
+
+    template <typename... Ts>
+    inline constexpr bool are_const_v = are_const<Ts...>::value;
+
+    template <typename... Ts>
+    concept const_value = are_const_v<Ts...>;
+
 }  // namespace details
 
 namespace mls {
@@ -28,19 +38,27 @@ namespace mls {
         inline static constexpr size_t height = mt_height;
         inline static constexpr size_t length = width * height;
 
-
         using storage_type = std::tuple<std::array<mt_data_types, length>...>;
 
-        template <typename... Ts>
+        template <typename... Ts> requires (sizeof...(Ts) >1)
         [[nodiscard]] std::tuple<Ts&...> get(size_t x, size_t y) {
-            return std::tuple<Ts&...>{std::get<std::array<Ts, length>>(
-                storage)[pos_to_index(x, y)]...};
+            return std::tuple<Ts&...>{get<Ts>(x, y)...};
         }
-        
+
+        template <details::const_value T>
+        [[nodiscard]] T& get(size_t x, size_t y) const {
+            return std::get<std::array<std::remove_cv_t<T>, length>>(
+                storage)[pos_to_index(x, y)];
+        }
+        template <typename T>
+        [[nodiscard]] T& get(size_t x, size_t y) {
+            return std::get<std::array<std::remove_cvref_t<T>, length>>(
+                storage)[pos_to_index(x, y)];
+        }
+
        private:
         size_t pos_to_index(size_t x, size_t y) { return x * width + y; }
 
-       private:
         storage_type storage;
     };
 }  // namespace mls
