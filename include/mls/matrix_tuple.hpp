@@ -18,17 +18,19 @@ namespace details {
 }  // namespace details
 
 namespace mls {
-    template <size_t width, size_t height, typename... data_types>
+    template <size_t mt_width, size_t mt_height, typename... mt_data_types>
     class matrix_tuple {
-        static_assert(details::are_distinct<data_types...>::value,
+        static_assert(details::are_distinct<mt_data_types...>::value,
                       "Types must be distinct");
 
-       private:
-        static constexpr size_t length = width * height;
-
-        using storage_type = std::tuple<std::array<data_types, length>...>;
-
        public:
+        inline static constexpr size_t width = mt_width;
+        inline static constexpr size_t height = mt_height;
+        inline static constexpr size_t length = width * height;
+
+
+        using storage_type = std::tuple<std::array<mt_data_types, length>...>;
+
         template <typename... Ts>
         [[nodiscard]] std::tuple<Ts&...> get(size_t x, size_t y) {
             return std::tuple<Ts&...>{std::get<std::array<Ts, length>>(
