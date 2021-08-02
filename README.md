@@ -22,15 +22,14 @@ represent and access a 2d grid of heterogeneous type easily
     chunk ck;
 
  
-        // access
+    // access
         
-        auto [elevation_, tile_id_] = ck.get<elevation, tile_id>(10, 30);
+    auto [elevation_, tile_id_] = ck.get<elevation, tile_id>(10, 30);
 
-        // modify
+    // modify
         
-        elevation_ = 50;
-        tile_id_ = 10;
-    }
+    elevation_ = 50;
+    tile_id_ = 10;
 
 ```
  
