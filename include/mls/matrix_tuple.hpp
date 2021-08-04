@@ -36,9 +36,9 @@ namespace mls {
        public:
         inline static constexpr size_t width = mt_width;
         inline static constexpr size_t height = mt_height;
-        inline static constexpr size_t length = width * height;
+        inline static constexpr size_t size = width * height;
 
-        using storage_type = std::tuple<std::array<mt_data_types, length>...>;
+        using storage_type = std::tuple<std::array<mt_data_types, size>...>;
 
         template <typename... Ts> requires (sizeof...(Ts) >1)
         [[nodiscard]] std::tuple<Ts&...> get(size_t x, size_t y) {
@@ -47,12 +47,12 @@ namespace mls {
 
         template <details::const_value T>
         [[nodiscard]] T& get(size_t x, size_t y) const {
-            return std::get<std::array<std::remove_cv_t<T>, length>>(
+            return std::get<std::array<std::remove_cv_t<T>, size>>(
                 storage)[pos_to_index(x, y)];
         }
         template <typename T>
         [[nodiscard]] T& get(size_t x, size_t y) {
-            return std::get<std::array<std::remove_cvref_t<T>, length>>(
+            return std::get<std::array<std::remove_cvref_t<T>, size>>(
                 storage)[pos_to_index(x, y)];
         }
 
