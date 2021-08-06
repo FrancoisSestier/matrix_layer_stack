@@ -63,7 +63,7 @@ namespace mls {
         }
 
        private:
-        size_t pos_to_index(size_t x, size_t y) { return x * width + y; }
+        size_t pos_to_index(size_t x, size_t y) const { return x * width + y; }
 
         storage_type storage;
     };
