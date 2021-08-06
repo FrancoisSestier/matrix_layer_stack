@@ -5,8 +5,7 @@
 
 using namespace mls;
 TEST(MATRIX_TUPLE, BASE_TYPES) {
-
-    matrix_tuple<256, 256, int,char> ck;
+    matrix_tuple<256, 256, int, char> ck;
     {
         auto& i = ck.get<int>(2, 3);
 
@@ -14,9 +13,8 @@ TEST(MATRIX_TUPLE, BASE_TYPES) {
 
         i++;
     }
-    auto [i,c] = ck.get<int,char>(2, 3);
+    auto [i, c] = ck.get<int, char>(2, 3);
     ASSERT_EQ(i, 1);
-
 }
 
 TEST(MATRIX_TUPLE, STRONG_TYPES) {
@@ -40,7 +38,6 @@ TEST(MATRIX_TUPLE, STRONG_TYPES) {
     auto [elevation_, tile_id_] = ck.get<elevation, tile_id>(10, 30);
     ASSERT_EQ(elevation_, 50);
     ASSERT_EQ(tile_id_, 10);
-
 };
 
 TEST(MATRIX_TUPLE, CONST_ACCESS) {
@@ -52,10 +49,17 @@ TEST(MATRIX_TUPLE, CONST_ACCESS) {
     chunk ck;
 
     {
-        auto [elevation_, tile_id_] = ck.get<const elevation,const tile_id>(10, 30);
+        auto [elevation_, tile_id_]
+            = ck.get<const elevation, const tile_id>(10, 30);
 
         ASSERT_EQ(elevation_, 0);
         ASSERT_EQ(tile_id_, 0);
     }
 
+    const chunk& ck2 = ck;
+
+    auto [elevation_, tile_id_]
+        = ck.get<const elevation, const tile_id>(10, 30);
+    ASSERT_EQ(elevation_, 0);
+    ASSERT_EQ(tile_id_, 0);
 };

@@ -50,6 +50,12 @@ namespace mls {
             return std::get<std::array<std::remove_cv_t<T>, size>>(
                 storage)[pos_to_index(x, y)];
         }
+
+        template <details::const_value... Ts> requires (sizeof...(Ts) >1)
+        [[nodiscard]] std::tuple<Ts&...> get(size_t x, size_t y) const {
+            return std::tuple<Ts&...>{get<Ts>(x, y)...};
+        }
+
         template <typename T>
         [[nodiscard]] T& get(size_t x, size_t y) {
             return std::get<std::array<std::remove_cvref_t<T>, size>>(
