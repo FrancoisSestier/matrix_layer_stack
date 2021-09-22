@@ -60,6 +60,12 @@ namespace mls {
         }
 
         template <typename T>
+        [[nodiscard]] T& get(size_t x, size_t y) {
+            return std::get<std::array<std::remove_cvref_t<T>, size>>(
+                storage)[pos_to_index(x, y)];
+        }
+        
+        template <typename T>
         [[nodiscard]] std::array<T, size>& underlying() {
             return std::get<std::array<std::remove_cvref_t<T>, size>>(storage);
         }
